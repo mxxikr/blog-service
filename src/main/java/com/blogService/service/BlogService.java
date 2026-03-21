@@ -2,6 +2,7 @@ package com.blogService.service;
 
 import com.blogService.domain.Article;
 import com.blogService.dto.AddArticleRequest;
+import com.blogService.dto.UpdateArticleRequest;
 import com.blogService.repository.BlogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,17 @@ public class BlogService {
      */
     public void delete(Long id) {
         blogRepository.deleteById(id);
+    }
+
+    /**
+     * 블로그 글 수정
+     */
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request) {
+        Article article = blogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+
+        article.update(request.getTitle(), request.getContent());
+
+        return article;
     }
 }
