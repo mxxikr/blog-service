@@ -35,17 +35,17 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth -> auth // 인증, 인가 설정
-                        .requestMatchers("/login", "/signup", "/user").permitAll()
+                        .requestMatchers("/api/signup", "/login").permitAll()
                         .anyRequest().authenticated())
-
                 .formLogin(formLogin -> formLogin // 폼 기반 로그인 설정
-                        .loginPage("/login")
-                        .defaultSuccessUrl("articles")
+                        .usernameParameter("email")
+                        .successHandler((request, response, authentication) -> response.setStatus(200))
+                        .failureHandler((request, response, exception) -> response.setStatus(401))
                 ).logout(logout -> logout // 로그아웃 설정
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessHandler((request, response, authentication) -> response.setStatus(200))
                         .invalidateHttpSession(true)
                 )
-                .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화
+                .csrf(AbstractHttpConfigurer::disable) // API 테스트를 위해 CSRF 비활성화
                 .build();
     }
 

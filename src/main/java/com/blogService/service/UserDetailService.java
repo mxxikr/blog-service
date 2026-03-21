@@ -1,8 +1,8 @@
 package com.blogService.service;
 
+import com.blogService.domain.User;
 import com.blogService.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
