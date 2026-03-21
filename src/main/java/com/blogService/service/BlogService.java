@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class BlogService {
@@ -21,4 +23,10 @@ public class BlogService {
         return blogRepository.save(request.toEntity());
     }
 
+    /**
+     * 블로그의 모든 글 조회
+     */
+    public List<Article> findAll() {
+        return blogRepository.findAll();
+    }
 }
