@@ -13,7 +13,7 @@ import java.util.Map;
 import static java.util.Collections.emptyMap;
 
 @Getter
-class JwtFactory {
+public class JwtFactory {
     private String subject = "test@email.com";
     private Date issuedAt = new Date();
     private Date expiration = new Date(new Date().getTime() + Duration.ofDays(14).toMillis());
