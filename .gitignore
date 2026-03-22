@@ -15,4 +15,10 @@ uploads-dev/
 # OS generated files
 .DS_Store
 Thumbs.db
-\n# LocalStack data\nlocalstack/
+
+# Compiled class files
+bin/
+*.class
+
+# LocalStack data
+localstack/
