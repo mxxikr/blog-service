@@ -1,5 +1,6 @@
 package com.blogService.service;
 
+import com.blogService.config.error.exception.ArticleNotFoundException;
 import com.blogService.domain.Article;
 import com.blogService.dto.AddArticleRequest;
 import com.blogService.dto.UpdateArticleRequest;
@@ -38,7 +39,7 @@ public class BlogService {
      */
     @Transactional(readOnly = true)
     public Article findById(Long id) {
-        return blogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+        return blogRepository.findById(id).orElseThrow(ArticleNotFoundException::new);
     }
 
     /**
@@ -46,7 +47,7 @@ public class BlogService {
      */
     @Transactional
     public void delete(Long id) {
-        Article article = blogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+        Article article = blogRepository.findById(id).orElseThrow(ArticleNotFoundException::new);
         authorizeArticleAuthor(article);
         blogRepository.deleteById(id);
     }
@@ -56,7 +57,7 @@ public class BlogService {
      */
     @Transactional
     public Article update(long id, UpdateArticleRequest request) {
-        Article article = blogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
+        Article article = blogRepository.findById(id).orElseThrow(ArticleNotFoundException::new);
 
         authorizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent());
