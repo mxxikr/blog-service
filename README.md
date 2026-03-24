@@ -1,4 +1,4 @@
-# 블로그 서비스 API (Blog Service)
+# 블로그 서비스 API
 
 ## 프로젝트 개요
 
