@@ -24,6 +24,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
         return user;
     }
 
+    // 유저가 있으면 업데이트, 없으면 유저 생성
     private User saveOrUpdate(OAuth2User oAuth2User) {
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
