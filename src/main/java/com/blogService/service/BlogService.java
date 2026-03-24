@@ -28,6 +28,7 @@ public class BlogService {
     /**
      * 블로그의 모든 글 조회
      */
+    @Transactional(readOnly = true)
     public List<Article> findAll() {
         return blogRepository.findAll();
     }
@@ -35,6 +36,7 @@ public class BlogService {
     /**
      * 블로그 글 조회
      */
+    @Transactional(readOnly = true)
     public Article findById(Long id) {
         return blogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
     }
@@ -42,6 +44,7 @@ public class BlogService {
     /**
      * 블로그 글 삭제
      */
+    @Transactional
     public void delete(Long id) {
         Article article = blogRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found: " + id));
         authorizeArticleAuthor(article);
