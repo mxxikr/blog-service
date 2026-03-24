@@ -1,5 +1,6 @@
 package com.blogService.config;
 
+import com.blogService.config.jwt.JwtProperties;
 import com.blogService.config.jwt.TokenProvider;
 import com.blogService.config.oauth.OAuth2SuccessHandler;
 import com.blogService.config.oauth.OAuth2UserCustomService;
@@ -29,6 +30,7 @@ public class WebOAuthSecurityConfig {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserService userService;
+    private final JwtProperties jwtProperties;
 
     @Bean
     public WebSecurityCustomizer configure() { // 스프링 시큐리티 기능 비활성화
@@ -71,7 +73,8 @@ public class WebOAuthSecurityConfig {
         return new OAuth2SuccessHandler(tokenProvider,
                 refreshTokenRepository,
                 oAuth2AuthorizationRequestBasedOnCookieRepository(),
-                userService
+                userService,
+                jwtProperties
         );
     }
 

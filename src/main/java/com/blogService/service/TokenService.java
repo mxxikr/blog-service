@@ -1,5 +1,7 @@
 package com.blogService.service;
 
+import com.blogService.config.error.ErrorCode;
+import com.blogService.config.error.exception.BusinessBaseException;
 import com.blogService.config.jwt.TokenProvider;
 import com.blogService.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ public class TokenService {
     public String createNewAccessToken(String refreshToken) {
         // 토큰 유효성 검사에 실패하면 예외 발생
         if (!tokenProvider.validateToken(refreshToken)) {
-            throw new IllegalArgumentException("Unexpected token");
+            throw new BusinessBaseException(ErrorCode.INVALID_INPUT_VALUE);
         }
 
         Long userId = refreshTokenService.findByRefreshToken(refreshToken).getUserId();

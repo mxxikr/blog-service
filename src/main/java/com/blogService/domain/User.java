@@ -32,6 +32,8 @@ public class User implements UserDetails {
     @Column(name = "nickname", unique = true)
     private String nickname;
 
+    private static final String DEFAULT_AUTHORITY = "ROLE_USER";
+
     @Builder
     public User(String email, String password, String auth, String nickname) {
         this.email = email;
@@ -48,7 +50,7 @@ public class User implements UserDetails {
 
     @Override // 권한 반환
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("user"));
+        return List.of(new SimpleGrantedAuthority(DEFAULT_AUTHORITY));
     }
 
     // 사용자의 id를 반환(고유한 값)

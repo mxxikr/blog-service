@@ -1,6 +1,8 @@
 package com.blogService.service;
 
+import com.blogService.config.error.ErrorCode;
 import com.blogService.config.error.exception.ArticleNotFoundException;
+import com.blogService.config.error.exception.BusinessBaseException;
 import com.blogService.domain.Article;
 import com.blogService.domain.Comment;
 import com.blogService.dto.AddArticleRequest;
@@ -83,7 +85,7 @@ public class BlogService {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
 
         if (!article.getAuthor().equals(userName)) {
-            throw new IllegalArgumentException("not authorized");
+            throw new BusinessBaseException(ErrorCode.FORBIDDEN);
         }
     }
 }

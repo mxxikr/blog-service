@@ -1,5 +1,7 @@
 package com.blogService.service;
 
+import com.blogService.config.error.ErrorCode;
+import com.blogService.config.error.exception.BusinessBaseException;
 import com.blogService.config.jwt.TokenProvider;
 import com.blogService.domain.RefreshToken;
 import com.blogService.repository.RefreshTokenRepository;
@@ -16,7 +18,7 @@ public class RefreshTokenService {
 
     public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected token"));
+                .orElseThrow(() -> new BusinessBaseException(ErrorCode.INVALID_INPUT_VALUE));
     }
 
     @Transactional
