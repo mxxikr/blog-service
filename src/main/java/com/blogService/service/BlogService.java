@@ -20,8 +20,8 @@ public class BlogService {
      * 블로그 글 추가
      */
     @Transactional
-    public Article save(AddArticleRequest request) {
-        return blogRepository.save(request.toEntity());
+    public Article save(AddArticleRequest request, String userName) {
+        return blogRepository.save(request.toEntity(userName));
     }
 
     /**
