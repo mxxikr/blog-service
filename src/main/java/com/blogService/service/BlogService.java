@@ -2,9 +2,12 @@ package com.blogService.service;
 
 import com.blogService.config.error.exception.ArticleNotFoundException;
 import com.blogService.domain.Article;
+import com.blogService.domain.Comment;
 import com.blogService.dto.AddArticleRequest;
+import com.blogService.dto.AddCommentRequest;
 import com.blogService.dto.UpdateArticleRequest;
 import com.blogService.repository.BlogRepository;
+import com.blogService.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import java.util.List;
 public class BlogService {
 
     private final BlogRepository blogRepository;
+    private final CommentRepository commentRepository;
 
     /**
      * 블로그 글 추가
@@ -63,6 +67,15 @@ public class BlogService {
         article.update(request.getTitle(), request.getContent());
 
         return article;
+    }
+
+    /**
+     * 댓글 추가
+     */
+    @Transactional
+    public Comment addComment(AddCommentRequest request, String userName) {
+        Article article = blogRepository.findById(request.getArticleId()).orElseThrow(ArticleNotFoundException::new);
+        return commentRepository.save(request.toEntity(userName, article));
     }
 
     // 게시글을 작성한 유저인지 확인

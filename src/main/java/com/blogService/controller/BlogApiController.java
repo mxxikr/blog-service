@@ -1,10 +1,8 @@
 package com.blogService.controller;
 
 import com.blogService.domain.Article;
-import com.blogService.dto.AddArticleRequest;
-import com.blogService.dto.ApiResponse;
-import com.blogService.dto.ArticleResponse;
-import com.blogService.dto.UpdateArticleRequest;
+import com.blogService.domain.Comment;
+import com.blogService.dto.*;
 import com.blogService.service.BlogService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -54,5 +52,12 @@ public class BlogApiController {
     public ResponseEntity<ApiResponse<ArticleResponse>> updateArticle(@PathVariable long id, @RequestBody @Valid UpdateArticleRequest request) {
         Article updateArticle = blogService.update(id, request);
         return ResponseEntity.ok(ApiResponse.success(new ArticleResponse(updateArticle)));
+    }
+
+    @PostMapping("/api/comments")
+    public ResponseEntity<ApiResponse<AddCommentResponse>> addComment(@RequestBody @Valid AddCommentRequest request, Principal principal) {
+        Comment savedComment = blogService.addComment(request, principal.getName());
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success(new AddCommentResponse(savedComment)));
     }
 }
