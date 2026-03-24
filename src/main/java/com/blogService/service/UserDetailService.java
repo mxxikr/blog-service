@@ -1,5 +1,6 @@
 package com.blogService.service;
 
+import com.blogService.config.error.exception.UserNotFoundException;
 import com.blogService.domain.User;
 import com.blogService.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,6 @@ public class UserDetailService implements UserDetailsService {
 
     @Override
     public User loadUserByUsername(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException((email)));
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 }

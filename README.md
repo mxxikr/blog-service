@@ -398,11 +398,27 @@ erDiagram
   - `E4` (NOT_FOUND)
     - **message**: `존재하지 않는 엔티티입니다.`
     - **description**: 요청한 리소스를 데이터베이스에서 찾을 수 없는 경우
+  - `E5` (FORBIDDEN)
+    - **message**: `접근 권한이 없습니다.`
+    - **description**: 요청한 리소스에 대한 접근 권한이 없는 경우 (예: 타인의 게시글 삭제 시도)
 
 - **게시글(Article)**
   - `A1` (ARTICLE_NOT_FOUND)
     - **message**: `존재하지 않는 아티클입니다.`
     - **description**: 요청한 ID에 해당하는 게시글이 존재하지 않는 경우
+
+- **사용자(User)**
+  - `U1` (USER_NOT_FOUND)
+    - **message**: `존재하지 않는 유저입니다.`
+    - **description**: 요청한 정보에 해당하는 사용자가 존재하지 않는 경우
+
+- **토큰(Token)**
+  - `R1` (REFRESH_TOKEN_NOT_FOUND)
+    - **message**: `존재하지 않는 리프레시 토큰입니다.`
+    - **description**: 데이터베이스에서 리프레시 토큰을 찾을 수 없는 경우
+  - `R2` (INVALID_REFRESH_TOKEN)
+    - **message**: `유효하지 않은 리프레시 토큰입니다.`
+    - **description**: 리프레시 토큰의 유효성 검증(만료, 형식 등)에 실패한 경우
 
 <br>
 

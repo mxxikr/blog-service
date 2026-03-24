@@ -1,5 +1,6 @@
 package com.blogService.service;
 
+import com.blogService.config.error.exception.UserNotFoundException;
 import com.blogService.domain.User;
 import com.blogService.dto.AddUserRequest;
 import com.blogService.repository.UserRepository;
@@ -26,11 +27,11 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User findById(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+        return userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
     }
 
     @Transactional(readOnly = true)
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 }

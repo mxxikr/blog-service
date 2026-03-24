@@ -16,16 +16,16 @@ public class TokenService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenService refreshTokenService;
     private final UserService userService;
+public String createNewAccessToken(String refreshToken) {
+    // 토큰 유효성 검사에 실패하면 예외 발생
+    if (!tokenProvider.validateToken(refreshToken)) {
+        throw new BusinessBaseException(ErrorCode.INVALID_REFRESH_TOKEN);
+    }
 
-    public String createNewAccessToken(String refreshToken) {
-        // 토큰 유효성 검사에 실패하면 예외 발생
-        if (!tokenProvider.validateToken(refreshToken)) {
-            throw new BusinessBaseException(ErrorCode.INVALID_INPUT_VALUE);
-        }
+    Long userId = refreshTokenService.findByRefreshToken(refreshToken).getUserId();
 
-        Long userId = refreshTokenService.findByRefreshToken(refreshToken).getUserId();
-        User user = userService.findById(userId);
+    User user = userService.findById(userId);
 
-        return tokenProvider.generateToken(user, Duration.ofHours(2));
+    return tokenProvider.generateToken(user, Duration.ofHours(2));
     }
 }
